@@ -17,6 +17,14 @@ To write a small Twitter clone that will allow the users to post messages to a p
 git clone https://github.com/edpackard/chitter.git
 ```
 
+## How to set up the database
+
+1. Install and set up psql if required (Homebrew: `brew install postgresql`).
+2. Connect to `psql` via the Terminal
+3. Create the database using the psql command `CREATE DATABASE chitter;`
+4. Connect to the production database using the pqsl command `\c chitter;`
+5. Run the query saved in the file `db/migrations/01_create_peeps_table.sql`
+
 ## How to run this app
 
 ## How to use this app
