@@ -6,5 +6,14 @@ class Chitter < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  get '/peeps' do
+    peeps = [
+      'This is a test peep!',
+      'This is another test peep!',
+      'Yet another test peep.'
+    ]
+    peeps.join
+  end
+
   run! if app_file == $0
 end
