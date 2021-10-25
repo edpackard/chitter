@@ -87,4 +87,4 @@ And/Or:
 ## Progress Log
 
 - first step: cloned the repo, tidied up README, ran bundle install, checked RSpec, rubocop, simplecov all working
-- planned simple routes/db relationships for 'straight up' user stories
+- planned simple routes/db relationships and MVC diagrams for 'straight up' user stories
