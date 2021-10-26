@@ -9,7 +9,7 @@ describe Peep do
     {'content' => 'Test Peep 3'}
   ]
 
-  it 'returns a list of bookmarks' do
+  it 'returns a list of peeps' do
     allow(PG).to receive(:connect).and_return(connection)
     allow(connection).to receive(:exec).and_return(result)
     peeps = Peep.all
