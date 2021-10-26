@@ -1,5 +1,7 @@
 # Chitter Challenge
 
+[![Build Status](https://app.travis-ci.com/edpackard/chitter.svg?branch=main)](https://app.travis-ci.com/edpackard/chitter)
+
 ## Technologies used:
 
 Ruby 3.0.2
