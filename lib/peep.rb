@@ -11,7 +11,7 @@ class Peep
     else
       connection = PG.connect(dbname: 'chitter')
     end
-    result = connection.exec('SELECT * FROM peeps')
+    result = connection.exec_params('SELECT * FROM peeps')
     result.map { |peep| peep }
   end
 
@@ -23,7 +23,7 @@ class Peep
     else 
       connection = PG.connect(dbname: 'chitter')
     end
-    connection.exec("INSERT INTO peeps (content, timestamp) VALUES ('#{content}', '#{Time.now}') RETURNING content, timestamp")
+    connection.exec_params("INSERT INTO peeps (content, timestamp) VALUES ('#{content}', '#{Time.now}') RETURNING content, timestamp")
   end
 
 end
