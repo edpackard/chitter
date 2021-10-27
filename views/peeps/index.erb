@@ -1,6 +1,9 @@
 <% @peeps.each do |peep| %>
   <ul>
-    <li><%=peep['content']%></li>
-    <li>Posted on <%= "#{Time.parse(peep['timestamp']).strftime('%-d/%-m/%Y')}"%> at <%="#{Time.parse(peep['timestamp']).strftime('%H:%M')}"%></li>
+    <li><%=peep['content']%>
+      <ul>
+        <li>Posted on <%= "#{Time.parse(peep['timestamp']).strftime('%-d/%-m/%Y')}"%> at <%="#{Time.parse(peep['timestamp']).strftime('%H:%M')}"%></li>
+      </ul>
+    </li>
   </ul>
 <%end%>
