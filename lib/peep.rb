@@ -2,6 +2,15 @@ require 'pg'
 
 class Peep
 
+  attr_reader :id, :content, :date, :time
+
+  def initialize(id:, content:, timestamp:)
+    @id = id
+    @content = content
+    @date = Time.parse(timestamp).strftime('%-d/%-m/%Y')
+    @time = Time.parse(timestamp).strftime('%H:%M')
+  end
+
   def self.all
 
     if ENV['RACK_ENV'] == 'test'
@@ -12,7 +21,9 @@ class Peep
       connection = PG.connect(dbname: 'chitter')
     end
     result = connection.exec_params('SELECT * FROM peeps')
-    result.map { |peep| peep }
+    result.map do |peep|
+      Peep.new(id: peep['id'], content: peep['content'], timestamp: peep['timestamp'])
+    end
   end
 
   def self.create(content:)
@@ -23,7 +34,7 @@ class Peep
     else 
       connection = PG.connect(dbname: 'chitter')
     end
-    connection.exec_params("INSERT INTO peeps (content, timestamp) VALUES ('#{content}', '#{Time.now}') RETURNING content, timestamp")
+    connection.exec_params("INSERT INTO peeps (content, timestamp) VALUES ('#{content}', '#{Time.now}') RETURNING id, content, timestamp")
   end
 
 end

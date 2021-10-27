@@ -5,15 +5,17 @@ describe Peep do
 
   describe '.all' do
     it 'returns all peeps' do
-      connection = PG.connect(dbname: 'chitter_test')
-      connection.exec("INSERT INTO peeps (content) VALUES ('This is a test peep.');")
-      connection.exec("INSERT INTO peeps (content) VALUES ('This is another test peep.');")
-      connection.exec("INSERT INTO peeps (content) VALUES ('Yet another test peep.');")
-      
+      time = Time.local(2022, 1, 1)
+      Timecop.freeze(time)
+      peep = Peep.create(content: 'This is a test peep.')
+      Peep.create(content: 'This is another test peep.')
+      Peep.create(content: 'Yet another test peep.')
       peeps = Peep.all
-      expect(peeps[0]['content']).to include('This is a test peep.')
-      expect(peeps[1]['content']).to include('This is another test peep.')
-      expect(peeps[2]['content']).to include('Yet another test peep.')
+      p peep[0]
+      expect(peeps.length).to eq 3
+      expect(peeps.first).to be_a Peep
+      expect(peeps.first.id).to eq(peep[0]['id'])
+      expect(peeps.first.content).to eq('This is a test peep.')
     end
   end
 
