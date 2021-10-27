@@ -18,6 +18,8 @@ class Peep
   def self.create(content:)
     if ENV['RACK_ENV'] == 'test'
       connection = PG.connect(dbname: 'chitter_test')
+    elsif ENV['RACK_ENV'] == 'production'
+      connection = PG.connect(ENV['DATABASE_URL'])
     else 
       connection = PG.connect(dbname: 'chitter')
     end
