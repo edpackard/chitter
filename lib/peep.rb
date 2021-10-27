@@ -21,9 +21,10 @@ class Peep
       connection = PG.connect(dbname: 'chitter')
     end
     result = connection.exec_params('SELECT * FROM peeps')
-    result.map do |peep|
+    peeps = result.map do |peep|
       Peep.new(id: peep['id'], content: peep['content'], timestamp: peep['timestamp'])
     end
+    peeps.reverse
   end
 
   def self.create(content:)

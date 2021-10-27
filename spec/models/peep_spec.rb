@@ -4,7 +4,7 @@ require 'timecop'
 describe Peep do
 
   describe '.all' do
-    it 'returns all peeps' do
+    it 'returns all peeps in reverse chronological order' do
       time = Time.local(2022, 1, 1)
       Timecop.freeze(time)
       peep = Peep.create(content: 'This is a test peep.')
@@ -13,8 +13,8 @@ describe Peep do
       peeps = Peep.all
       expect(peeps.length).to eq 3
       expect(peeps.first).to be_a Peep
-      expect(peeps.first.id).to eq(peep.id)
-      expect(peeps.first.content).to eq('This is a test peep.')
+      expect(peeps.last.id).to eq(peep.id)
+      expect(peeps.last.content).to eq('This is a test peep.')
     end
   end
 

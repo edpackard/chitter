@@ -23,16 +23,16 @@ describe Peep do
       }
     ]
 
-    it 'returns a list of peeps' do
+    it 'returns all peeps in reverse chronological order' do
       allow(PG).to receive(:connect).and_return(connection)
       allow(connection).to receive(:exec_params).and_return(result)
       peeps = Peep.all
-      expect(peeps[0].content).to eq 'Test Peep 1.'
-      expect(peeps[0].time).to eq '00:00'
+      expect(peeps[2].content).to eq 'Test Peep 1.'
+      expect(peeps[2].time).to eq '00:00'
       expect(peeps[1].id).to eq "2"
       expect(peeps[1].content).to eq 'Test Peep 2.'
-      expect(peeps[2].content).to eq 'Test Peep 3.'
-      expect(peeps[2].date).to eq '1/1/2022'
+      expect(peeps[0].content).to eq 'Test Peep 3.'
+      expect(peeps[0].date).to eq '1/1/2022'
     end
   end
 
