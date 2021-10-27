@@ -5,10 +5,10 @@ describe Peep do
   let(:connection) { double(:connection) }
 
   describe '.all' do
-    result = [ 
-      {'content' => 'Test Peep 1'}, 
-      {'content' => 'Test Peep 2'}, 
-      {'content' => 'Test Peep 3'}
+    result = [
+      { 'content' => 'Test Peep 1' }, 
+      { 'content' => 'Test Peep 2' }, 
+      { 'content' => 'Test Peep 3' }
     ]
 
     it 'returns a list of peeps' do
