@@ -25,7 +25,7 @@ git clone https://github.com/edpackard/chitter.git
 2. Connect to `psql` via the Terminal
 3. Create the database using the psql command `CREATE DATABASE chitter;` and create the test database using the psql command `CREATE DATABASE chitter_test;`
 4. Connect to the development database using the pqsl command `\c chitter;`
-5. Run the query saved in the file `db/migrations/01_create_peeps_table.sql`
+5. Sequentially run the queries saved in the `db/migrations` directory.
 6. Connect to the test database using the psql command `\c chitter_test` and repeat step 5.
 
 ## How to run this app
