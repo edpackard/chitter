@@ -94,8 +94,3 @@ If you have time you can implement the following:
 And/Or:
 
 - Work on the CSS to make it look good.
-
-## Progress Log
-
-- first step: cloned the repo, tidied up README, ran bundle install, checked RSpec, rubocop, simplecov all working
-- planned simple routes/db relationships and MVC diagrams for 'straight up' user stories
