@@ -1,1 +1,6 @@
-<%= @peeps.join %>
+<% @peeps.each do |peep| %>
+  <ul>
+    <li><%=peep%> 
+    </li>
+  </ul>
+<%end%>
