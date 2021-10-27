@@ -11,10 +11,9 @@ describe Peep do
       Peep.create(content: 'This is another test peep.')
       Peep.create(content: 'Yet another test peep.')
       peeps = Peep.all
-      p peep[0]
       expect(peeps.length).to eq 3
       expect(peeps.first).to be_a Peep
-      expect(peeps.first.id).to eq(peep[0]['id'])
+      expect(peeps.first.id).to eq(peep.id)
       expect(peeps.first.content).to eq('This is a test peep.')
     end
   end
@@ -23,9 +22,14 @@ describe Peep do
     it 'creates a new peep' do
       time = Time.local(2022, 1, 1)
       Timecop.freeze(time)
-      peep = Peep.create(content: 'Testing testing').first
-      expect(peep['content']).to eq('Testing testing')
-      expect(peep['timestamp']).to eq('2022-01-01 00:00:00+00')
+      peep = Peep.create(content: 'Testing testing')
+      persisted_data = PG.connect(dbname: 'chitter_test').query("SELECT * FROM peeps WHERE id = #{peep.id};")
+
+      expect(peep).to be_a Peep
+      expect(peep.id).to eq(persisted_data.first['id'])
+      expect(peep.content).to eq('Testing testing')
+      expect(peep.date).to eq('1/1/2022')
+      expect(peep.time).to eq('00:00')
     end
   end
 
