@@ -19,8 +19,8 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
 SimpleCov.start
 
 RSpec.configure do |config|
-  config.before(:each) do
-    setup_test_database
+  config.before(:each) do |test|
+    setup_test_database unless test.metadata[:no_database]
   end
   config.after(:suite) do
     puts
