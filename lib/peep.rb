@@ -6,7 +6,9 @@ class Peep
 
     if ENV['RACK_ENV'] == 'test'
       connection = PG.connect(dbname: 'chitter_test')
-    else 
+    elsif ENV['RACK_ENV'] == 'production'
+      connection = PG.connect(ENV['DATABASE_URL'])
+    else
       connection = PG.connect(dbname: 'chitter')
     end
     result = connection.exec('SELECT * FROM peeps')
