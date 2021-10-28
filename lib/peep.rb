@@ -1,4 +1,4 @@
-require 'pg'
+require_relative 'database_connection'
 
 class Peep
 
@@ -12,15 +12,7 @@ class Peep
   end
 
   def self.all
-
-    if ENV['RACK_ENV'] == 'test'
-      connection = PG.connect(dbname: 'chitter_test')
-    elsif ENV['RACK_ENV'] == 'production'
-      connection = PG.connect(ENV['DATABASE_URL'])
-    else
-      connection = PG.connect(dbname: 'chitter')
-    end
-    result = connection.exec('SELECT * FROM peeps')
+    result = DatabaseConnection.query('SELECT * FROM peeps')
     peeps = result.map do |peep|
       Peep.new(id: peep['id'], content: peep['content'], timestamp: peep['timestamp'])
     end
@@ -28,16 +20,7 @@ class Peep
   end
 
   def self.create(content:)
-    if ENV['RACK_ENV'] == 'test'
-      connection = PG.connect(dbname: 'chitter_test')
-    elsif ENV['RACK_ENV'] == 'production'
-      connection = PG.connect(ENV['DATABASE_URL'])
-    else 
-      connection = PG.connect(dbname: 'chitter')
-    end
-    peep = connection.exec_params("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
-    #peep = connection.exec_params("INSERT INTO peeps (content, timestamp) VALUES ('#{content}', '#{Time.now}') RETURNING id, content, timestamp")
-    # "INSERT INTO bookmarks (url, title) VALUES($1, $2) RETURNING id, title, url;", [content, Time.now]
+    peep = DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
     Peep.new(id: peep[0]['id'], content: peep[0]['content'], timestamp: peep[0]['timestamp'])
   end
 

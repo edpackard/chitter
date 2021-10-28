@@ -24,8 +24,7 @@ describe Peep do
     ]
 
     it 'returns all peeps in reverse chronological order', :no_database_setup do
-      allow(PG).to receive(:connect).and_return(test_connection)
-      allow(test_connection).to receive(:exec).and_return(result)
+      allow(DatabaseConnection).to receive(:query).and_return(result)
       peeps = Peep.all
       expect(peeps[2].content).to eq 'Test Peep 1.'
       expect(peeps[2].time).to eq '00:00'
@@ -38,8 +37,7 @@ describe Peep do
 
   describe '.create' do
     it 'creates a new peep', :no_database_setup do
-      allow(PG).to receive(:connect).and_return(test_connection)
-      allow(test_connection).to receive(:exec_params).with("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", ["a test", Time.now]).and_return([{"id"=>'1', "content"=>'Test pass', "timestamp"=>'2022-01-01 00:00:00 +0000'}])
+      allow(DatabaseConnection).to receive(:query).and_return([{"id"=>'1', "content"=>'Test pass', "timestamp"=>'2022-01-01 00:00:00 +0000'}])
       peep = Peep.create(content: 'a test')
       expect(peep.content).to eq 'Test pass'
       expect(peep.id).to eq('1')
