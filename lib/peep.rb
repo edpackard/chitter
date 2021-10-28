@@ -1,4 +1,5 @@
 require_relative 'database_connection'
+require 'date'
 
 class Peep
 
@@ -7,8 +8,10 @@ class Peep
   def initialize(id:, content:, timestamp:)
     @id = id
     @content = content
-    @date = Time.parse(timestamp).getlocal.strftime('%-d/%-m/%Y')
-    @time = Time.parse(timestamp).getlocal.strftime('%H:%M')
+    dt = DateTime.parse(timestamp)
+    dt = dt.new_offset(DateTime.now.offset)
+    @date = dt.strftime('%-d/%-m/%Y')
+    @time = dt.strftime('%H:%M')
   end
 
   def self.all
@@ -20,7 +23,8 @@ class Peep
   end
 
   def self.create(content:)
-    peep = DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
+    time = DateTime.now
+    peep = DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, time])
     Peep.new(id: peep[0]['id'], content: peep[0]['content'], timestamp: peep[0]['timestamp'])
   end
 
