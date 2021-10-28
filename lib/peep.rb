@@ -6,12 +6,13 @@ class Peep
   attr_reader :id, :content, :date, :time
 
   def initialize(id:, content:, timestamp:)
+    original_timestamp = DateTime.parse(timestamp)
+    offset = Time.now.strftime("%:z")
+    converted_timestamp = original_timestamp.new_offset(offset)
     @id = id
     @content = content
-    dt = DateTime.parse(timestamp)
-    dt = dt.new_offset(DateTime.now.offset)
-    @date = dt.strftime('%-d/%-m/%Y')
-    @time = dt.strftime('%H:%M')
+    @date = converted_timestamp.strftime('%-d/%-m/%Y')
+    @time = converted_timestamp.strftime('%H:%M')
   end
 
   def self.all
