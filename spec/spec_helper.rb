@@ -20,7 +20,7 @@ SimpleCov.start
 
 RSpec.configure do |config|
   config.before(:each) do |test|
-    setup_test_database unless test.metadata[:no_database]
+    setup_test_database unless test.metadata[:no_database_setup]
   end
   config.after(:suite) do
     puts
