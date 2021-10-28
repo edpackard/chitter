@@ -7,8 +7,8 @@ class Peep
   def initialize(id:, content:, timestamp:)
     @id = id
     @content = content
-    @date = Time.parse(timestamp).strftime('%-d/%-m/%Y')
-    @time = Time.parse(timestamp).strftime('%H:%M')
+    @date = Time.parse(timestamp).getlocal.strftime('%-d/%-m/%Y')
+    @time = Time.parse(timestamp).getlocal.strftime('%H:%M')
   end
 
   def self.all

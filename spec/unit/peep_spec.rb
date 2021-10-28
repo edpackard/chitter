@@ -33,6 +33,7 @@ describe Peep do
       expect(peeps[0].content).to eq 'Test Peep 3.'
       expect(peeps[0].date).to eq '1/1/2022'
     end
+
   end
 
   describe '.create' do
