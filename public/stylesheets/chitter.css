@@ -16,7 +16,7 @@ textarea {
   margin: 10px 0 10px 0;
   display: inline-block;
   border: none;
-  background: lightskyblue;
+  background: powderblue;
   border-radius: 8px;
 }
 
@@ -59,4 +59,20 @@ nav li a {
 nav li a:hover {
   background-color: royalblue;
   color: white;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: royalblue;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: royalblue;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: royalblue;
 }
