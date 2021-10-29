@@ -3,11 +3,9 @@ require 'timecop'
 
 describe Peep do
 
-  #before {Time.stub(:localtime) {Time.now.utc}}
-
   describe '.all' do
     it 'returns all peeps in reverse chronological order' do
-      time = Time.local(2022, 1, 1)
+      time = Time.utc(2022, 1, 1, 0, 0, 0)
       Timecop.freeze(time)
       peep = Peep.create(content: 'This is a test peep.')
       Peep.create(content: 'This is another test peep.')
@@ -23,7 +21,7 @@ describe Peep do
 
   describe '.create' do
     it 'creates a new peep' do
-      time = Time.local(2022, 1, 1)
+      time = Time.utc(2022, 1, 1, 0, 0, 0)
       Timecop.freeze(time)
       peep = Peep.create(content: 'Testing testing')
       persisted_data = DatabaseConnection.setup(dbname: 'chitter_test').query("SELECT * FROM peeps WHERE id = #{peep.id};")
@@ -32,6 +30,13 @@ describe Peep do
       expect(peep.content).to eq('Testing testing')
       expect(peep.date).to eq('1/1/2022')
       expect(peep.time).to eq('00:00')
+    end
+
+    it 'converts times to UK time including BST' do
+      time = Time.utc(2022, 6, 1, 0, 0, 0)
+      Timecop.freeze(time)
+      peep = Peep.create(content: 'Testing testing')
+      expect(peep.time).to eq('01:00')
     end
   end
 

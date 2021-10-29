@@ -3,24 +3,18 @@ require 'date'
 
 class Peep
 
-  attr_reader :id, :content, :date, :time, :orig, :conv
+  attr_reader :id, :content, :date, :time
 
   def initialize(id:, content:, timestamp:)
-    original_timestamp = Time.parse(timestamp)
-    p original_timestamp
-    @orig = original_timestamp
-    conv = original_timestamp.getlocal
-    p conv
-    @conv = conv
-    # offset = Time.now.strftime("%:z")
-    # p offset
-    # converted_timestamp = original_timestamp.new_offset(offset)
-    # p converted_timestamp
+    original_timestamp = DateTime.parse(timestamp)
+    bst = Time.parse(original_timestamp.new_offset('+01:00').to_s)
+    bst.dst? ? offset = "BST" : offset = "UTC"
+    utc_timestamp = original_timestamp.new_offset(0)
+    converted_timestamp = utc_timestamp.new_offset(offset) 
     @id = id
     @content = content
-    @date = conv.strftime('%-d/%-m/%Y')
-    @time = conv.strftime('%H:%M')
-    p @time
+    @date = converted_timestamp.strftime('%-d/%-m/%Y')
+    @time = converted_timestamp.strftime('%H:%M')
   end
 
   def self.all
