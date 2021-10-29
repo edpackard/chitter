@@ -5,6 +5,16 @@
     <link rel='stylesheet' type='text/css' href='/stylesheets/chitter.css' />
   </head>
   <body>
+    <nav>
+      <ul>
+        <% if request.path_info == '/peeps/new' %>
+          <li><a href="/peeps">See All Peeps</a></li>
+        <% end %>
+        <% if request.path_info == '/peeps' %>
+          <li><a href="/peeps/new">New Peep</a></li>
+        <% end %>
+      </ul>
+    </nav>
     <%= yield %>
   </body>
 <html>
