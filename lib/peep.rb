@@ -30,6 +30,7 @@ class Peep
   private
 
   def time_conversion(timestamp)
+    ENV['TZ'] = 'GB'
     original_time = DateTime.parse(timestamp)
     p "orig time"
     p original_time
