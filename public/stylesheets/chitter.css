@@ -8,12 +8,12 @@ input[type="submit"] {
   border-radius: 8px;
 }
 
-input[type="text"] {
+textarea {
   width: 20%;
   font-size: 16px;
   font-weight: bold;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 10px 0 10px 0;
   display: inline-block;
   border: none;
   background: lightskyblue;
@@ -21,12 +21,42 @@ input[type="text"] {
 }
 
 li,
-input {
+textarea {
   color: royalblue;
   font-family: Helvetica;
   text-align: left;
+  font-size: 16px;
 }
 
-li {
+.time li {
   list-style: none;
+  margin-top: 5px;
+  color: steelblue;
+  font-size: 14px;
+}
+
+nav ul {
+  list-style-type: none;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightskyblue;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: royalblue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: royalblue;
+  color: white;
 }

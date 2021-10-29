@@ -1,8 +1,17 @@
-<form action='/peeps' method='GET'>
-  <input type='submit' value='See All Peeps'>
-</form>
+<nav>
+  <ul>
+    <li>
+      <a href="/peeps">See All Peeps</a>
+    </li>
+  </ul>
+</nav>
 
-<form action="/peeps" method="post">
-  <input type="text" name="content" placeholder = "Write your peep here!"/>
-  <input type="submit" value="Submit" />
+<form action='/peeps' method='post'>
+  <label for='content'></label>
+  <div>
+    <textarea style='resize: none;' maxlength='140' 
+    id='content' name='content' rows=5 placeholder="Write your peep here!"
+    required></textarea>
+  </div>
+  <input type='submit' value='Peep!'>
 </form>

@@ -1,12 +1,19 @@
-<form action='/peeps/new' method='GET'>
-  <input type='submit' value='New Peep'>
-</form>
+<nav>
+  <ul>
+    <li>
+      <a href="/peeps/new">New Peep</a>
+    </li>
+  </ul>
+</nav>
 
 <% @peeps.each do |peep| %>
   <ul>
-    <li><%=peep.content%>
+    <li>
+      <b><%=peep.content%></b>
       <ul>
+        <div class='time'>
         <li><em>Posted on <%= "#{peep.date}"%> at <%="#{peep.time}"%></em></li> 
+        </div>
       </ul>
     </li>
   </ul>
