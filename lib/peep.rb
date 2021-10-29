@@ -3,12 +3,14 @@ require 'date'
 
 class Peep
 
-  attr_reader :id, :content, :date, :time
+  attr_reader :id, :content, :timestamp, :time, :date
 
   def initialize(id:, content:, timestamp:)
     @id = id
     @content = content
-    @time = timezone_convert(timestamp)
+    @timestamp = timezone_convert(timestamp)
+    @time =  @timestamp.strftime('%H:%M')
+    @date =  @timestamp.strftime('%-d/%-m/%Y')
   end
 
   def self.all
@@ -16,7 +18,7 @@ class Peep
     peeps = result.map do |peep|
       Peep.new(id: peep['id'], content: peep['content'], timestamp: peep['timestamp'])
     end
-    peeps.sort_by { |peep| peep.time }.reverse
+    peeps.sort_by { |peep| peep.timestamp }.reverse
   end
 
   def self.create(content:)

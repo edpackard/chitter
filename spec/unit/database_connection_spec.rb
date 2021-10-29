@@ -25,7 +25,6 @@ describe DatabaseConnection do
       content = 'test peep'
       expect(test_connection).to receive(:exec_params).with("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
       DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
-
     end
   end
 

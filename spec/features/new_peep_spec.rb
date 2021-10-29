@@ -4,6 +4,5 @@ feature 'Posting a new peep' do
     fill_in('content', with: 'A brand new peep!')
     click_button('Submit')
     expect(page).to have_content('A brand new peep!')
-    # include time of peep? (timecop?)
   end
 end
