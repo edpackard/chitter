@@ -8,17 +8,15 @@ class Peep
   def initialize(id:, content:, timestamp:)
     @id = id
     @content = content
-    time = time_conversion(timestamp)
-    @date = time.strftime('%-d/%-m/%Y')
-    @time = time.strftime('%H:%M')
+    @time = timezone_convert(timestamp)
   end
 
   def self.all
-    result = DatabaseConnection.query('SELECT * FROM peeps')
+    result = DatabaseConnection.query('SELECT * FROM peeps;')
     peeps = result.map do |peep|
       Peep.new(id: peep['id'], content: peep['content'], timestamp: peep['timestamp'])
     end
-    peeps.reverse
+    peeps.sort_by { |peep| peep.time }.reverse
   end
 
   def self.create(content:)
@@ -29,21 +27,12 @@ class Peep
 
   private
 
-  def time_conversion(timestamp)
+  def timezone_convert(timestamp)
     ENV['TZ'] = 'GB'
     original_time = DateTime.parse(timestamp)
-    p "orig time"
-    p original_time
-    bst_offset = Time.parse(original_time.new_offset('+01:00').to_s)
-    p "bst offset"
-    p bst_offset
-    offset = bst_offset.dst? ?  "BST" : "UTC"
-    p offset
-    p "utc time"
-    utc_time = original_time.new_offset(0)
-    p  utc_time
-    utc_time.new_offset(offset) 
+    dst_offset = Time.parse(original_time.new_offset('+01:00').to_s)
+    offset = dst_offset.dst? ?  "BST" : "UTC"
+    original_time.new_offset(offset)
   end
-
 
 end
