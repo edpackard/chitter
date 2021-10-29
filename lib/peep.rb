@@ -20,8 +20,9 @@ class Peep
   end
 
   def self.create(content:)
+    sql = "INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;" 
     time = Time.now
-    peep = DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, time])
+    peep = DatabaseConnection.query(sql, [content, time])
     Peep.new(id: peep[0]['id'], content: peep[0]['content'], timestamp: peep[0]['timestamp'])
   end
 
@@ -31,7 +32,7 @@ class Peep
     ENV['TZ'] = 'GB'
     original_time = DateTime.parse(timestamp)
     dst_offset = Time.parse(original_time.new_offset('+01:00').to_s)
-    offset = dst_offset.dst? ?  "BST" : "UTC"
+    offset = dst_offset.dst? ? "BST" : "UTC"
     original_time.new_offset(offset)
   end
 

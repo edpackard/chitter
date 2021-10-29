@@ -14,6 +14,7 @@ describe Peep do
       time = Time.utc(2024, 1, 1, 0, 0, 0)
       Timecop.freeze(time)  
       Peep.create(content: 'Yet another test peep.')
+      
       peeps = Peep.all
       expect(peeps.length).to eq 3
       expect(peeps.first).to be_a Peep
@@ -30,6 +31,7 @@ describe Peep do
       datetime = DateTime.parse(time.to_s)
       peep = Peep.create(content: 'Testing testing')
       persisted_data = DatabaseConnection.setup(dbname: 'chitter_test').query("SELECT * FROM peeps WHERE id = #{peep.id};")
+      
       expect(peep).to be_a Peep
       expect(peep.id).to eq(persisted_data.first['id'])
       expect(peep.content).to eq('Testing testing')

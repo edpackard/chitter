@@ -14,7 +14,7 @@ describe DatabaseConnection do
   describe '.query' do
     it 'sends sql queries to PG', :no_database_setup do
       allow(PG).to receive(:connect).with(dbname: 'chitter_test').and_return(test_connection)
-      DatabaseConnection.setup({dbname: 'chitter_test'})
+      DatabaseConnection.setup({ dbname: 'chitter_test' })
       expect(test_connection).to receive(:exec_params).with("SELECT * FROM peeps;", [])
       DatabaseConnection.query("SELECT * FROM peeps;")
     end
