@@ -6,15 +6,11 @@ class Peep
   attr_reader :id, :content, :date, :time
 
   def initialize(id:, content:, timestamp:)
-    original_timestamp = DateTime.parse(timestamp)
-    bst = Time.parse(original_timestamp.new_offset('+01:00').to_s)
-    bst.dst? ? offset = "BST" : offset = "UTC"
-    utc_timestamp = original_timestamp.new_offset(0)
-    converted_timestamp = utc_timestamp.new_offset(offset) 
     @id = id
     @content = content
-    @date = converted_timestamp.strftime('%-d/%-m/%Y')
-    @time = converted_timestamp.strftime('%H:%M')
+    time = time_conversion(timestamp)
+    @date = time.strftime('%-d/%-m/%Y')
+    @time = time.strftime('%H:%M')
   end
 
   def self.all
@@ -30,5 +26,23 @@ class Peep
     peep = DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, time])
     Peep.new(id: peep[0]['id'], content: peep[0]['content'], timestamp: peep[0]['timestamp'])
   end
+
+  private
+
+  def time_conversion(timestamp)
+    original_time = DateTime.parse(timestamp)
+    p "orig time"
+    p original_time
+    bst_offset = Time.parse(original_time.new_offset('+01:00').to_s)
+    p "bst offset"
+    p bst_offset
+    offset = bst_offset.dst? ?  "BST" : "UTC"
+    p offset
+    p "utc time"
+    utc_time = original_time.new_offset(0)
+    p  utc_time
+    utc_time.new_offset(offset) 
+  end
+
 
 end
