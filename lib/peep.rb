@@ -9,8 +9,8 @@ class Peep
     @id = id
     @content = content
     @timestamp = timezone_convert(timestamp)
-    @time =  @timestamp.strftime('%H:%M')
-    @date =  @timestamp.strftime('%-d/%-m/%Y')
+    @time = @timestamp.strftime('%H:%M')
+    @date = @timestamp.strftime('%-d/%-m/%Y')
   end
 
   def self.all
