@@ -2,8 +2,6 @@ require 'peep'
 
 describe Peep do
 
-  let(:test_connection) { double(:test_connection) }
-
   describe '.all' do
     result = [
       { 

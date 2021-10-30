@@ -1,3 +1,4 @@
+require 'database_helpers'
 require 'peep'
 require 'timecop'
 
@@ -29,10 +30,9 @@ describe Peep do
       time = Time.utc(2022, 1, 1, 0, 10, 0)
       Timecop.freeze(time)
       peep = Peep.create(content: 'Testing testing')
-      persisted_data = DatabaseConnection.setup(dbname: 'chitter_test').query("SELECT * FROM peeps WHERE id = #{peep.id};")
-      
+      persisted_data = persisted_data(id: peep.id, table: :peeps)
       expect(peep).to be_a Peep
-      expect(peep.id).to eq(persisted_data.first['id'])
+      expect(peep.id).to eq(persisted_data['id'])
       expect(peep.content).to eq('Testing testing')
       expect(peep.time).to eq('00:10')
       expect(peep.date).to eq('1/1/2022')
