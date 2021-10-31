@@ -7,6 +7,8 @@
   <body>
     <nav>
       <ul>
+      <div class="navtitle">
+        <li>Chitter</li></div>
         <% if request.path_info == '/peeps' && !session[:user_id] %>
           <li style="float:right"><a href="/users/new">Sign Up</a></li>
         <% end %>
