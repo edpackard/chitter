@@ -36,10 +36,16 @@ describe Peep do
 
   describe '.create' do
 
-    it 'will not create an empty peep' do
+    it 'will not create an empty peep', :no_database_setup do
       expect(DatabaseConnection).to_not receive(:query)
       Peep.create(content: "", user_id: nil)
     end
+
+    it 'will not allow peep above 140 characters', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      Peep.create(content: "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901", user_id: nil)
+    end
+
 
     it 'creates a new peep', :no_database_setup do
       response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-01-01 00:00:00 +0000' }, "user_id" => nil]

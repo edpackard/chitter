@@ -23,10 +23,9 @@ class Peep
   end
 
   def self.create(content:, user_id:)
-    return if content == ""
+    return false if content.length.zero? || content.length > 140
     sql = "INSERT INTO peeps (content, timestamp, user_id) VALUES($1, $2, $3) RETURNING id, content, timestamp, user_id;" 
-    time = Time.now
-    peep = DatabaseConnection.query(sql, [content, time, user_id])
+    peep = DatabaseConnection.query(sql, [content, Time.now, user_id])
     Peep.new(id: peep[0]['id'], content: peep[0]['content'], timestamp: peep[0]['timestamp'], user_id: user_id)
   end
 

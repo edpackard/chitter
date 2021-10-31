@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require 'sinatra/reloader'
 
 require_relative './lib/peep'
@@ -7,6 +8,7 @@ require_relative './database_connection_setup'
 
 class Chitter < Sinatra::Base
   enable :sessions
+  register Sinatra::Flash
   configure :development do
     register Sinatra::Reloader
   end
@@ -22,8 +24,10 @@ class Chitter < Sinatra::Base
   end
 
   post '/peeps' do
-    Peep.create(content: params[:content], user_id: session[:user_id])
-    redirect '/peeps'
+    redirect '/peeps' if Peep.create(content: params[:content], user_id: session[:user_id])
+    flash[:notice] = "Peeps must be between 1-140 characters."
+    #could send params content to peeps/new to use as placeholder so user doesn't lose what they typed
+    redirect '/peeps/new' 
   end
 
   get '/peeps/new' do
@@ -33,6 +37,7 @@ class Chitter < Sinatra::Base
 
   post '/users' do
     user = User.create(name: params[:name], email: params[:email], password: params[:password])
+    redirect '/users/new' unless user
     session[:user_id] = user.id
     redirect '/peeps'
   end

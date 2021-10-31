@@ -4,6 +4,7 @@ gem 'bcrypt'
 gem 'pg'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'sinatra-flash'
 gem 'webrick'
 
 group :test do

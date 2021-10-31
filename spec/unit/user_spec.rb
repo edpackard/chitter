@@ -19,11 +19,42 @@ describe User do
       expect(user.email).to eq('test@example.com')
     end
 
-    it 'hashes password using BCcrypt', :no_database_setup do
+    it 'hashes password using BCrypt', :no_database_setup do
       allow(DatabaseConnection).to receive(:query).and_return(response)
       expect(BCrypt::Password).to receive(:create).with('drowsapp')
       User.create(name: 'Test', email: 'test@example.com', password: 'drowsapp')
     end
+
+    it 'will not allow usernames above 15 characters', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: 'Toolongname12345', email: 'test@example.com', password: 'drowsapp')
+    end
+    
+    it 'will not allow empty usernames', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: '', email: 'test@example.com', password: 'drowsapp')
+    end
+
+    it 'will not allow passwords above 140 characters', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: 'name', email: 'test@example.com', password: '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901')
+    end
+    
+    it 'will not allow empty password', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: 'name', email: 'test@example.com', password: '')
+    end
+
+    it 'will not allow email above 60 characters', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: 'name', email: 'testtesttesttesttesttesttesttesttesttesttesttest1@example.com', password: 'drowsapp')
+    end
+    
+    it 'will not allow empty email', :no_database_setup do
+      expect(DatabaseConnection).to_not receive(:query)
+      User.create(name: 'name', email: '', password: 'drowsapp')
+    end
+
   end
 
   describe '.find' do
