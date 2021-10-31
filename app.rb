@@ -43,6 +43,7 @@ class Chitter < Sinatra::Base
   end
 
   get '/users/new' do
+    redirect '/peeps' if session[:user_id]
     erb :"users/new"
   end
 
