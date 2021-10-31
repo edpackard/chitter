@@ -36,9 +36,9 @@ describe Peep do
 
   describe '.create' do
     it 'creates a new peep', :no_database_setup do
-      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-01-01 00:00:00 +0000' }]
+      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-01-01 00:00:00 +0000' }, "user_id" => nil]
       allow(DatabaseConnection).to receive(:query).and_return(response)
-      peep = Peep.create(content: 'Test')
+      peep = Peep.create(content: 'Test', user_id: nil)
       expect(peep.content).to eq 'Test'
       expect(peep.id).to eq('1')
       expect(peep.time).to eq ('00:00')
@@ -46,27 +46,34 @@ describe Peep do
     end
 
     it 'creates new peep (converts non-UTC to UK time (non-DST example))', :no_database_setup do
-      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-12-25 06:00:00 +0600' }]
+      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-12-25 06:00:00 +0600' }, "user_id" => nil]
       allow(DatabaseConnection).to receive(:query).and_return(response)
-      peep = Peep.create(content: 'Test')
+      peep = Peep.create(content: 'Test', user_id: nil)
       expect(peep.time).to eq ('00:00')
       expect(peep.date).to eq ('25/12/2022')
     end
 
     it 'creates new peep (converts UTC time to UK time (DST example))', :no_database_setup do
-      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-06-01 23:00:00 +0000' }]
+      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-06-01 23:00:00 +0000' }, "user_id" => nil]
       allow(DatabaseConnection).to receive(:query).and_return(response)
-      peep = Peep.create(content: 'Test')
+      peep = Peep.create(content: 'Test', user_id: nil)
       expect(peep.time).to eq ('00:00')
       expect(peep.date).to eq ('2/6/2022')
     end
 
     it 'creates new peep (converts non-UTC to UK time (DST example))', :no_database_setup do
-      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '1984-06-01 06:00:00 +0600' }]
+      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '1984-06-01 06:00:00 +0600' }, "user_id" => nil]
       allow(DatabaseConnection).to receive(:query).and_return(response)
-      peep = Peep.create(content: 'Test')
+      peep = Peep.create(content: 'Test', user_id: nil)
       expect(peep.time).to eq ('01:00')
       expect(peep.date).to eq ('1/6/1984')
+    end
+
+    it 'returns Unknown as name if no userid', :no_database_setup do
+      response = [{ "id" => '1', "content" => 'Test', "timestamp" => '1984-06-01 06:00:00 +0600' }, "user_id" => nil]
+      allow(DatabaseConnection).to receive(:query).and_return(response)
+      peep = Peep.create(content: 'Test', user_id: nil)
+      expect(peep.name).to eq ('Unknown')
     end
 
   end
