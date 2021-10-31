@@ -7,7 +7,6 @@ describe '.create' do
     expect(user.id).to eq persisted_data['id']
     expect(user.name).to eq('TestUser21')
     expect(user.email).to eq 'test@example.com'
-    expect(user.password).to eq 'drowssap'
   end
 
 describe '.find' do
