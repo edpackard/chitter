@@ -22,10 +22,10 @@ feature 'Viewing peeps' do
 
     visit('/peeps')
     expect(page).to have_content "This is a test peep."
-    expect(page).to have_content "Posted on 1/1/2022 at 00:00"
+    expect(page).to have_content "Posted by Unknown on 1/1/2022 at 00:00"
     expect(page).to have_content "This is another test peep."
-    expect(page).to have_content "Posted on 1/1/2023 at 00:00"
+    expect(page).to have_content "Posted by Unknown on 1/1/2023 at 00:00"
     expect(page).to have_content "A test peep posted within BST."
-    expect(page).to have_content "Posted on 1/6/2024 at 01:00"
+    expect(page).to have_content "Posted by Unknown on 1/6/2024 at 01:00"
   end
 end
