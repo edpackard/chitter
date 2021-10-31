@@ -10,6 +10,7 @@ before_script:
   - psql --dbname=chitter_test -U postgres -c 'CREATE TABLE peeps(id SERIAL PRIMARY KEY, content VARCHAR(140));'
   - psql --dbname=chitter_test -U postgres -c 'ALTER TABLE peeps ADD COLUMN timestamp TIMESTAMPTZ;'
   - psql --dbname=chitter_test -U postgres -c 'CREATE TABLE users(id SERIAL PRIMARY KEY, name varchar(15), email varchar(60), password VARCHAR(140));'
+  - psql --dbname=chitter_test -U postgres -c 'ALTER TABLE peeps ADD COLUMN user_id INTEGER REFERENCES users (id);'
 
 script:
   - bundle exec rspec
