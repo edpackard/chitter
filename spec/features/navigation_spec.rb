@@ -1,23 +1,26 @@
 feature 'navigation' do
-  scenario 'A signed-in user can click on a button in index to go to new post page' do
+  scenario 'A signed-in user can click on button on index page to go to new peep page' do
     visit '/users/new'
     fill_in('name', with: 'chitterer123')
     fill_in('email', with: 'test@example.com')
     fill_in('password', with: 'drowsapp')
     click_button('Submit')
     click_link('New Peep')
+
     expect(page).to have_current_path('/peeps/new')
     expect(page).to have_no_link 'New Peep'
   end
 
-  scenario 'A signed-in user can click on a button on new peep page to go to index' do
+  scenario 'A signed-in user can click on button on new peep page to go to index' do
     visit '/users/new'
     fill_in('name', with: 'chitterer123')
     fill_in('email', with: 'test@example.com')
     fill_in('password', with: 'drowsapp')
     click_button('Submit')
+
     click_link('New Peep')
     click_link('See All Peeps')
+
     expect(page).to have_current_path('/peeps')
     expect(page).to have_no_link 'See All Peeps'
   end
@@ -28,7 +31,9 @@ feature 'navigation' do
     fill_in('email', with: 'test@example.com')
     fill_in('password', with: 'drowsapp')
     click_button('Submit')
+    
     visit '/users/new'
+
     expect(page).to have_current_path('/peeps')
   end
 

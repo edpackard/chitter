@@ -2,8 +2,6 @@
   <h1>Welcome, <%= @user.name %></h1>
 <%end%>
 
-<%= flash[:notice] if flash[:notice] %>
-
 <% @peeps.each do |peep| %>
   <ul>
     <li>

@@ -34,8 +34,6 @@ class User
     )
   end
 
-  private
-  
   def self.encrypted_password(password)
     BCrypt::Password.create(password)
   end
@@ -45,6 +43,5 @@ class User
     email.length.zero? || email.length > 60 || 
     password.length.zero? || password.length > 140
   end
-
 
 end

@@ -42,10 +42,11 @@ describe Peep do
     end
 
     it 'will not allow peep above 140 characters', :no_database_setup do
+      long_peep = "1234567890123456789012345678901234567890123456789012345"\
+      "67890123456789012345678901234567890123456789012345678901234567890123456789012345678901"
       expect(DatabaseConnection).to_not receive(:query)
-      Peep.create(content: "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901", user_id: nil)
+      Peep.create(content: long_peep, user_id: nil)
     end
-
 
     it 'creates a new peep', :no_database_setup do
       response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-01-01 00:00:00 +0000' }, "user_id" => nil]

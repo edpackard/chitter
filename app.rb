@@ -26,7 +26,7 @@ class Chitter < Sinatra::Base
   post '/peeps' do
     redirect '/peeps' if Peep.create(content: params[:content], user_id: session[:user_id])
     flash[:notice] = "Peeps must be between 1-140 characters."
-    #could send params content to peeps/new to use as placeholder so user doesn't lose what they typed
+    # send params content to peeps/new as placeholder so user doesn't lose what they typed?
     redirect '/peeps/new' 
   end
 

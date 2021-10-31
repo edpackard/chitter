@@ -15,11 +15,13 @@ feature 'Viewing peeps' do
     click_link('New Peep')
     fill_in('content', with: 'This is a test peep.')
     click_button('Peep!')
+
     time = Time.utc(2023, 1, 1, 0, 0, 0)
     Timecop.freeze(time)
     click_link('New Peep')    
     fill_in('content', with: 'This is another test peep.')
     click_button('Peep!')
+    
     time = Time.utc(2024, 6, 1, 0, 0, 0)
     Timecop.freeze(time)
     click_link('New Peep')
@@ -27,6 +29,7 @@ feature 'Viewing peeps' do
     click_button('Peep!')
 
     visit('/peeps')
+    
     expect(page).to have_content "This is a test peep."
     expect(page).to have_content "Posted by chitterer123 on 1/1/2022 at 00:00"
     expect(page).to have_content "This is another test peep."
