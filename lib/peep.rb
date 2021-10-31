@@ -23,6 +23,7 @@ class Peep
   end
 
   def self.create(content:, user_id:)
+    return if content == ""
     sql = "INSERT INTO peeps (content, timestamp, user_id) VALUES($1, $2, $3) RETURNING id, content, timestamp, user_id;" 
     time = Time.now
     peep = DatabaseConnection.query(sql, [content, time, user_id])

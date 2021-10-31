@@ -35,6 +35,12 @@ describe Peep do
   end
 
   describe '.create' do
+
+    it 'will not create an empty peep' do
+      expect(DatabaseConnection).to_not receive(:query)
+      Peep.create(content: "", user_id: nil)
+    end
+
     it 'creates a new peep', :no_database_setup do
       response = [{ "id" => '1', "content" => 'Test', "timestamp" => '2022-01-01 00:00:00 +0000' }, "user_id" => nil]
       allow(DatabaseConnection).to receive(:query).and_return(response)
