@@ -1,9 +1,10 @@
 # Chitter Challenge
 
-To add to README: planning diagrams, picture of app in action
-
 [![Build Status](https://app.travis-ci.com/edpackard/chitter.svg?branch=main)](https://app.travis-ci.com/edpackard/chitter)
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=chitter-2021)
+
+![Screenshot](./public/screenshots/chitter1.png)
+![Screenshot](./public/screenshots/chitter2.png)
 
 ## Visit the deployed app
 
@@ -12,6 +13,18 @@ https://chitter-2021.herokuapp.com/
 ## Challenge:
 
 To write a small Twitter clone that will allow the users to post messages to a public stream. See the [user stories](#user-stories) and [required functionality](#notes-on-functionality) below.
+
+## Planning
+
+These are my initial MVC plans for the first two user stories:
+
+![Plan](./public/plans/peep_plan.png)
+
+![Plan](./public/plans/peeps_plan.png)
+
+This is my database and RESTful routes modelling:
+
+![Plan](./public/plans/plan.png)
 
 ## Technologies used:
 
