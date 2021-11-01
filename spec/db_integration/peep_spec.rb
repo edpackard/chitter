@@ -6,22 +6,22 @@ describe 'Peep: database integration' do
 
   describe '.all' do
     it 'retrieves peeps from database and displays them in reverse chronological order' do
-      user1 = User.create(name: 'TestUser1', password: 'drowssap', email: 'test@example.com')
-      persisted_user1_data = persisted_data(id: user1.id, table: :users)
-      user2 = User.create(name: 'TestUser2', password: 'password', email: 'test2@example.com')
-      persisted_user2_data = persisted_data(id: user2.id, table: :users)
-      
+      insert_user_into_db(name: 'TestUser1', password: 'drowssap', email: 'test@example.com')
+      insert_user_into_db(name: 'TestUser2', password: 'password', email: 'test2@example.com')
+      user1_id = get_user_id(name: 'TestUser1')
+      user2_id = get_user_id(name: 'TestUser2')
+    
       time = Time.utc(2022, 1, 1, 0, 0, 0)
       Timecop.freeze(time)
-      peep = Peep.create(content: 'This is a test peep.', user_id: persisted_user1_data['id'])
+      peep = Peep.create(content: 'This is a test peep.', user_id: user1_id)
       
       time = Time.utc(2023, 1, 1, 0, 0, 0)
       Timecop.freeze(time)
-      Peep.create(content: 'This is another test peep.', user_id: persisted_user2_data['id'])
+      Peep.create(content: 'This is another test peep.', user_id: user2_id)
       
       time = Time.utc(2024, 1, 1, 0, 0, 0)
       Timecop.freeze(time)  
-      Peep.create(content: 'Yet another test peep.', user_id: persisted_user2_data['id'])
+      Peep.create(content: 'Yet another test peep.', user_id: user2_id)
       
       peeps = Peep.all
 
@@ -40,10 +40,10 @@ describe 'Peep: database integration' do
       time = Time.utc(2022, 1, 1, 0, 10, 0)
       Timecop.freeze(time)
       
-      user = User.create(name: 'TestUser21', password: 'drowssap', email: 'test@example.com')
-      persisted_user_data = persisted_data(id: user.id, table: :users)
+      insert_user_into_db(name: 'TestUser21', password: 'drowssap', email: 'test@example.com')
+      user_id = get_user_id(name: 'TestUser21')
       
-      peep = Peep.create(content: 'Testing testing', user_id: persisted_user_data['id'])
+      peep = Peep.create(content: 'Testing testing', user_id: user_id)
       persisted_peep_data = persisted_data(id: peep.id, table: :peeps)
       
       expect(peep).to be_a Peep

@@ -3,7 +3,7 @@ require 'database_helpers'
 describe 'User: database integration' do
 
   describe '.create' do
-    it 'creates new user' do
+    it 'creates new user in the database' do
       user = User.create(name: 'TestUser21', password: 'drowssap', email: 'test@example.com')
       persisted_data = persisted_data(table: :users, id: user.id)
       
@@ -14,7 +14,7 @@ describe 'User: database integration' do
   end
 
   describe '.find' do
-    it 'finds a user by ID' do
+    it 'finds a user in the database by ID' do
       user = User.create(name: 'TestUser21', password: 'drowssap', email: 'test@example.com')
       result = User.find(user.id)
       
