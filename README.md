@@ -1,6 +1,7 @@
 # Chitter Challenge
 
 [![Build Status](https://app.travis-ci.com/edpackard/chitter.svg?branch=main)](https://app.travis-ci.com/edpackard/chitter)
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=chitter-2021)
 
 ## Technologies used:
 
