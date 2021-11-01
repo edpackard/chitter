@@ -1,5 +1,4 @@
 require_relative 'database_connection'
-
 require 'bcrypt'
 
 class User
@@ -12,9 +11,9 @@ class User
     @name = name
   end
 
-  def self.create(name:, email:, password:)
+  def self.create(name:, email:, password:, connection: DatabaseConnection)
     return false if invalid_params?(name, email, password)
-    result = DatabaseConnection.query(
+    result = connection.query(
       "INSERT INTO users (name, email, password) VALUES($1, $2, $3) RETURNING id, name, email;",
       [name, email, encrypted_password(password)]
     )
@@ -23,9 +22,9 @@ class User
     )
   end
 
-  def self.find(id)
+  def self.find(id, connection = DatabaseConnection)
     return nil unless id
-    result = DatabaseConnection.query(
+    result = connection.query(
         "SELECT * FROM users WHERE id = $1",
       [id]
     )
