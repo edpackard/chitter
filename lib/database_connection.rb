@@ -2,8 +2,8 @@ require 'pg'
 
 class DatabaseConnection
 
-  def self.setup(connection)
-    @connection = PG.connect(connection)
+  def self.setup(connection, client = PG)
+    @connection = client.connect(connection)
   end
 
   def self.query(sql, params = [])
