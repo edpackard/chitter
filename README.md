@@ -3,8 +3,13 @@
 [![Build Status](https://app.travis-ci.com/edpackard/chitter.svg?branch=main)](https://app.travis-ci.com/edpackard/chitter)
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=chitter-2021)
 
-![Screenshot](./public/screenshots/chitter1.png)
-![Screenshot](./public/screenshots/chitter2.png)
+| ![Screenshot](./public/screenshots/chitter1.png) |
+| :----------------------------------------------: |
+|              Screenshot of homepage              |
+
+| ![Screenshot](./public/screenshots/chitter2.png) |
+| :----------------------------------------------: |
+|           Screenshot of new peep page            |
 
 ## Visit the deployed app
 
