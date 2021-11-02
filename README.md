@@ -94,6 +94,8 @@ If your details are accepted, you will receive a welcome message, and be returne
 
 If you want to peep with a different name, you will have to sign up again - but bear in mind there is currently no functionality that will allow you to sign back in with your previous 'account' (there is also currently no functionality to prevent identifical names signing up, so if you want to peep with the same name as before in a new session, you can sign up a new account with that name).
 
+Currently, peep times are converted to UK time.
+
 ## How to run the tests
 
 Run `rspec` from Terminal within the chitter-challenge directory. This will run all of the feature, integration and unit tests. To run individual tests, put the file path after rspec, such as `rspec ./spec/unit/user_spec.rb`
