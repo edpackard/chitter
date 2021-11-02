@@ -26,11 +26,9 @@ class Peep
   end
 
   attr_reader(
+    :content,  
     :id, 
-    :content,
-    :date,
     :name,
-    :time,
     :timestamp
   )
 

@@ -8,7 +8,7 @@ describe DatabaseConnection do
   describe '.setup' do
     it 'sets up connection to database', :no_database_setup do
       expect(client_double).to receive(:connect).with(dbname: 'chitter_test')
-      DatabaseConnection.setup({dbname: 'chitter_test'}, client_double)
+      DatabaseConnection.setup({ dbname: 'chitter_test' }, client_double)
     end
   end
 
@@ -25,7 +25,7 @@ describe DatabaseConnection do
       sql = "INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;"
       allow(client_double).to receive(:connect)
         .with(dbname: 'chitter_test').and_return(test_connection)
-      DatabaseConnection.setup({dbname: 'chitter_test'}, client_double)
+      DatabaseConnection.setup({ dbname: 'chitter_test' }, client_double)
       content = 'test peep'
       expect(test_connection).to receive(:exec_params)
         .with(sql, [content, Time.now])
