@@ -25,8 +25,7 @@ class Chitter < Sinatra::Base
 
   post '/peeps' do
     redirect '/peeps' if Peep.create(content: params[:content], user_id: session[:user_id])
-    flash[:notice] = "Peeps must be between 1-140 characters."
-    # send params content to peeps/new as placeholder so user doesn't lose what they typed?
+    flash[:notice] = 'Peeps must be between 1-140 characters.'
     redirect '/peeps/new' 
   end
 
@@ -44,7 +43,7 @@ class Chitter < Sinatra::Base
 
   get '/users/new' do
     redirect '/peeps' if session[:user_id]
-    erb :"users/new"
+    erb :'users/new'
   end
 
   run! if app_file == $0

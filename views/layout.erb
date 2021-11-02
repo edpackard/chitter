@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' href='/stylesheets/chitter.css' />
   </head>
   <body>
     <nav>
       <ul>
-      <div class="navtitle">
+      <div class='navtitle'>
         <li>Chitter</li></div>
         <% if request.path_info == '/peeps' && !session[:user_id] %>
-          <li style="float:right"><a href="/users/new">Sign Up</a></li>
+          <li style='float:right'><a href='/users/new'>Sign Up</a></li>
         <% end %>
         <% if request.path_info == '/peeps' && session[:user_id] %>
-          <li><a href="/peeps/new">New Peep</a></li>
+          <li><a href='/peeps/new'>New Peep</a></li>
         <% end %>
         <% if request.path_info != '/peeps' %>
-          <li><a href="/peeps">See All Peeps</a></li>
+          <li><a href='/peeps'>See All Peeps</a></li>
         <% end %>
       </ul>
     </nav>

@@ -25,7 +25,7 @@ class User
   def self.find(id, connection = DatabaseConnection)
     return nil unless id
     result = connection.query(
-        "SELECT * FROM users WHERE id = $1",
+      "SELECT * FROM users WHERE id = $1",
       [id]
     )
     User.new(

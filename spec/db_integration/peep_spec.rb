@@ -32,7 +32,6 @@ describe 'Peep: database integration' do
       expect(peeps.last.content).to eq('This is a test peep.')
       expect(peeps.last.name).to eq('TestUser1')
     end
-
   end
 
   describe '.create' do
@@ -53,7 +52,5 @@ describe 'Peep: database integration' do
       expect(peep.date).to eq('1/1/2022')
       expect(peep.name).to eq('TestUser21')
     end
-
   end
-
 end

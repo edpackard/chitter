@@ -81,5 +81,4 @@ describe User do
       expect(User.find(nil, connection)).to eq nil
     end
   end
-
 end

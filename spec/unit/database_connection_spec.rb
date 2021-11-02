@@ -14,19 +14,22 @@ describe DatabaseConnection do
 
   describe '.query' do
     it 'sends sql queries to db connection', :no_database_setup do
-      allow(client_double).to receive(:connect).with(dbname: 'chitter_test').and_return(test_connection)
+      allow(client_double).to receive(:connect)
+        .with(dbname: 'chitter_test').and_return(test_connection)
       DatabaseConnection.setup({ dbname: 'chitter_test' }, client_double)
       expect(test_connection).to receive(:exec_params).with("SELECT * FROM peeps;", [])
       DatabaseConnection.query("SELECT * FROM peeps;")
     end
 
     it 'sends params for an sql query to db connection', :no_database_setup do
-      allow(client_double).to receive(:connect).with(dbname: 'chitter_test').and_return(test_connection)
+      sql = "INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;"
+      allow(client_double).to receive(:connect)
+        .with(dbname: 'chitter_test').and_return(test_connection)
       DatabaseConnection.setup({dbname: 'chitter_test'}, client_double)
       content = 'test peep'
-      expect(test_connection).to receive(:exec_params).with("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
-      DatabaseConnection.query("INSERT INTO peeps (content, timestamp) VALUES($1, $2) RETURNING id, content, timestamp;", [content, Time.now])
+      expect(test_connection).to receive(:exec_params)
+        .with(sql, [content, Time.now])
+      DatabaseConnection.query(sql, [content, Time.now])
     end
   end
-
 end

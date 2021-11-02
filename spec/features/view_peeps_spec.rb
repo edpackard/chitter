@@ -2,7 +2,7 @@ require 'timecop'
 
 feature 'Viewing peeps' do
 
-  scenario 'visit index page' do
+  scenario 'A user can sign in, make 3 new peeps, and see them on index page' do
 
     visit '/users/new'
     fill_in('name', with: 'chitterer123')
@@ -30,11 +30,11 @@ feature 'Viewing peeps' do
 
     visit('/peeps')
     
-    expect(page).to have_content "This is a test peep."
-    expect(page).to have_content "Posted by chitterer123 on 1/1/2022 at 00:00"
-    expect(page).to have_content "This is another test peep."
-    expect(page).to have_content "Posted by chitterer123 on 1/1/2023 at 00:00"
-    expect(page).to have_content "A test peep posted within BST."
-    expect(page).to have_content "Posted by chitterer123 on 1/6/2024 at 01:00"
+    expect(page).to have_content('This is a test peep.')
+    expect(page).to have_content('Posted by chitterer123 on 1/1/2022 at 00:00')
+    expect(page).to have_content('This is another test peep.')
+    expect(page).to have_content('Posted by chitterer123 on 1/1/2023 at 00:00')
+    expect(page).to have_content('A test peep posted within BST.')
+    expect(page).to have_content('Posted by chitterer123 on 1/6/2024 at 01:00')
   end
 end
