@@ -38,8 +38,6 @@ describe Peep do
       expect(peeps[2].time).to eq ('00:00')
       expect(peeps[2].date).to eq('1/1/2021')
       expect(peeps[2].id).to eq('1')
-      
-     
     end
 
   end
