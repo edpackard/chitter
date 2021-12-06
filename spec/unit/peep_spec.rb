@@ -26,12 +26,20 @@ describe Peep do
     it 'returns all peeps in reverse chronological order', :no_database_setup do
       allow(connection).to receive(:query).and_return(result)
       peeps = Peep.all(connection)
-      expect(peeps[2].content).to eq('Test Peep - earliest.')
-      expect(peeps[2].date).to eq('1/1/2021')
-      expect(peeps[1].id).to eq('3')
-      expect(peeps[1].content).to eq('Test Peep - middle.')
       expect(peeps[0].content).to eq('Test Peep - latest.')
       expect(peeps[0].time).to eq ('00:00')
+      expect(peeps[0].date).to eq('1/1/2023')
+      expect(peeps[0].id).to eq('2')
+      expect(peeps[1].content).to eq('Test Peep - middle.')
+      expect(peeps[1].time).to eq ('00:00')
+      expect(peeps[1].date).to eq('1/1/2022')
+      expect(peeps[1].id).to eq('3')
+      expect(peeps[2].content).to eq('Test Peep - earliest.')
+      expect(peeps[2].time).to eq ('00:00')
+      expect(peeps[2].date).to eq('1/1/2021')
+      expect(peeps[2].id).to eq('1')
+      
+     
     end
 
   end
