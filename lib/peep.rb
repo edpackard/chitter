@@ -59,7 +59,8 @@ class Peep
 
   def find_name(user_id, connection)
     return 'Unknown' unless user_id
-    name = connection.query("SELECT name FROM users WHERE id=#{user_id}")
+    sql = "SELECT name FROM users WHERE id=$1"
+    name = connection.query(sql, [user_id])
     name[0]['name']
   end
 
